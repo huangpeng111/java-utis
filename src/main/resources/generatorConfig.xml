@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+ PUBLIC " -//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+ "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry
+		location="C:/Users/000/maven/repository/mysql/mysql-connector-java/5.1.32/mysql-connector-java-5.1.32.jar" />
+	<context id="my" targetRuntime="MyBatis3">
+	
+		<property name="javaFileEncoding" value="UTF-8"/>
+		<commentGenerator>
+			<property name="suppressDate" value="false" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- mysql数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/jtdb" userId="root"
+			password="root" />
+		<javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+		<!-- 生成model实体类文件位置 -->
+		<javaModelGenerator targetPackage="com.cy.pojo"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+			<!-- for MyBatis3 / MyBatis3Simple 是否创建一个不可变的类，如果为true， 那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类 -->
+           <property name="immutable" value="false" />
+		</javaModelGenerator>
+
+		<!-- 生成mapper.xml配置文件位置 -->
+		<sqlMapGenerator targetPackage="com.cy.mapper"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成mapper接口文件位置 -->
+		<javaClientGenerator targetPackage="com.cy.mapper"
+			targetProject="src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!-- 需要生成的实体类对应的表名，多个实体类复制多份该配置即可 -->
+		
+		<table tableName="tb_cart" domainObjectName="Cart"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+	</context>
+</generatorConfiguration>

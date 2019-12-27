@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>文件上传</title>
+</head>
+<body>
+<form action="doLogin" method="post" enctype="multipart/form-data">
+账号:<input type="text" name="username" /><br>
+密码:<input type="password" name="password" /><br>
+照片:<input type="file" name="file"><br>
+<input type="submit" value="提交">
+</form>
+
+ <label>请选择一个图像文件：</label>
+			    <input type="file" id="pic_selector" multiple/> <!--multiple，可选择多张图片-->
+			    <button>提交</button>
+			    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+			    <script type="text/javascript">
+			   
+			    function readFile(){
+			    		dataArr = { data : [] };
+			    		fd = new FormData();
+			    		var iLen = this.files.length;
+			        	for(var i=0;i<iLen;i++){	
+			            	if (!input['value'].match(/.jpg|.gif|.png|.bmp/i)){　　//判断所选文件格式
+			                	return alert("上传的图片格式不正确，请重新选择");
+			            	}
+				            var reader = new FileReader();
+				            fd.append(i,this.files[i]);
+				            reader.readAsDataURL(this.files[i]);  //转成base64
+				            var fileName = this.files[i].name;
+				            reader.onload = function(e){
+					            	var imgMsg = {
+					            		name : fileName,//获取文件名
+					            		base64 : this.result   //reader.readAsDataURL方法执行完后，base64数据储存在reader.result里
+					            }
+					            	dataArr.data.push(imgMsg);
+				                result = '<div style="display:none" class="result" ><img src="'+this.result+'" alt=""/></div>';
+				                div = document.createElement('div');
+				                div.innerHTML = result;
+				                div['className'] = 'float';
+				                document.getElementsByTagName('body')[0].appendChild(div);  　　//插入页面
+								var img = div.getElementsByTagName('img')[0];
+								img.onload = function(){
+									var nowHeight = ReSizePic(this); //设置图片大小
+									this.parentNode.style.display = 'block';
+									var oParent = this.parentNode;
+									if(nowHeight){
+										oParent.style.paddingTop = (oParent.offsetHeight - nowHeight)/2 + 'px';
+									}
+								}
+				            }
+				        }
+			    }
+			    
+			    function ReSizePic(ThisPic) {
+			    	var RePicWidth = 200; //这里修改为您想显示的宽度值
+			     
+			    	var TrueWidth = ThisPic.width; //图片实际宽度
+			    	var TrueHeight = ThisPic.height; //图片实际高度
+			    	
+			    	if(TrueWidth>TrueHeight){
+			    		//宽大于高
+			    		var reWidth = RePicWidth;
+			    		ThisPic.width = reWidth;
+			    		//垂直居中
+			    		var nowHeight = TrueHeight * (reWidth/TrueWidth);
+			    		return nowHeight;  //将图片修改后的高度返回，供垂直居中用
+			    	}else{
+			    		//宽小于高
+			    		var reHeight = RePicWidth;
+			    		ThisPic.height = reHeight;
+			    	}
+			    }
+			
+			    </script>
+</body>
+</html>

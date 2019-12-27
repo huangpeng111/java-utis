@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.cy.service.MailService;
+import com.cy.mail.service.MailService;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
